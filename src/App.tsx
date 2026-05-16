@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import {
   Menu,
   X,
-  Sun,
-  Moon,
   Mail,
   Github,
   Linkedin,
@@ -207,23 +205,15 @@ function SectionHeader({ icon, title }: { icon: React.ReactNode; title: string }
 }
 
 export default function App() {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBack, setShowBack] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("theme");
-    if (savedTheme === "light" || savedTheme === "dark") {
-      setTheme(savedTheme);
-    }
+    document.documentElement.classList.remove("light-theme");
+    window.localStorage.setItem("theme", "dark");
   }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("light-theme", theme === "light");
-    window.localStorage.setItem("theme", theme);
-  }, [theme]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -278,13 +268,6 @@ export default function App() {
             ))}
           </nav>
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-2xl theme-surface theme-border text-slate-100 transition hover:scale-[1.03] hover:bg-[var(--hover-surface)]"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
             <button
               className="inline-flex h-11 w-11 items-center justify-center rounded-2xl theme-surface theme-border text-slate-100 md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
