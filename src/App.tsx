@@ -650,9 +650,8 @@ export default function App() {
       </main>
 
       <footer className="border-t theme-border py-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 lg:flex-row lg:items-center lg:justify-between lg:px-20 text-sm text-slate-500">
+        <div className="mx-auto max-w-7xl px-6 lg:px-20 text-sm text-slate-500">
           <p>� 2026 Lahiru Sampath. Built for modern engineering careers.</p>
-          <p className="text-cyan-300">Premium portfolio experience</p>
         </div>
       </footer>
 
