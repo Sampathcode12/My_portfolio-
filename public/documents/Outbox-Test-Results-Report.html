@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outbox — Test Results & QA Report</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 24px; color: #1e293b; line-height: 1.6; }
+    h1 { color: #6A1B7A; border-bottom: 3px solid #8E24AA; padding-bottom: 12px; }
+    h2 { color: #334155; margin-top: 32px; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    th, td { border: 1px solid #cbd5e1; padding: 10px 12px; text-align: left; }
+    th { background: #f1f5f9; }
+    .pass { color: #059669; font-weight: 600; }
+    .summary-box { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0; }
+    .summary-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; text-align: center; }
+    .summary-item strong { display: block; font-size: 28px; color: #059669; }
+    .meta { color: #64748b; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>Outbox (AutoBlog) — Test Results & QA Report</h1>
+  <p class="meta"><strong>App:</strong> Outbox (com.example.autoblog) · <strong>Version:</strong> 1.0 · <strong>Platform:</strong> Android · <strong>Report date:</strong> June 2026</p>
+
+  <div class="summary-box">
+    <div class="summary-item"><strong>23</strong>Unit tests</div>
+    <div class="summary-item"><strong>4</strong>Test suites</div>
+    <div class="summary-item"><strong>100%</strong>Pass rate</div>
+    <div class="summary-item"><strong>0</strong>Failures</div>
+  </div>
+
+  <h2>1. Testing Overview</h2>
+  <p>Testing covered unit tests (Gradle), functional UI flows, integration checks for WordPress/Blogger publishing, and security validation for HTML output. Gradle command <code>./gradlew test</code> completed successfully with all unit tests passing.</p>
+
+  <h2>2. Types of Testing Performed</h2>
+  <ul>
+    <li>Unit testing — message preview, search/filter, bulk share formatting</li>
+    <li>Functional testing — login, CRUD, search, share, and publish screens</li>
+    <li>Integration testing — WordPress URL normalization and publish credential validation</li>
+    <li>Security testing — HTML/XSS escaping in published article formatter</li>
+    <li>Regression testing — search cases TC-4.1 and TC-4.2 retested after fixes</li>
+  </ul>
+
+  <h2>3. Unit Test Suites (Gradle)</h2>
+  <table>
+    <thead>
+      <tr><th>Test suite</th><th>Tests</th><th>Failures</th><th>Result</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>MessageUtilsTest</td><td>12</td><td>0</td><td class="pass">Pass</td></tr>
+      <tr><td>WordPressPublisherTest</td><td>6</td><td>0</td><td class="pass">Pass</td></tr>
+      <tr><td>WordPressArticleFormatterTest</td><td>4</td><td>0</td><td class="pass">Pass</td></tr>
+      <tr><td>ExampleUnitTest</td><td>1</td><td>0</td><td class="pass">Pass</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. Sample Test Cases</h2>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Module</th><th>Test case</th><th>Expected result</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>TC-4.1</td><td>Search</td><td>No-match search query</td><td>Empty result list</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-4.2</td><td>Search</td><td>Matching substring in title/body</td><td>Only matching messages shown</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-05</td><td>Messages</td><td>Default seed data on first launch</td><td>3 demo messages loaded</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-06</td><td>Share</td><td>Bulk share text formatting</td><td>Multiple messages separated correctly</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-07</td><td>Publish</td><td>Empty publish list</td><td>Failure with clear message</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-08</td><td>Publish</td><td>WordPress.com site detection</td><td>Correct host classification</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-09</td><td>Publish</td><td>SEO title generation</td><td>Trimmed title within 60 chars</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-10</td><td>Security</td><td>HTML escape in article body</td><td>Script tags escaped safely</td><td class="pass">Pass</td></tr>
+    </tbody>
+  </table>
+
+  <h2>5. Conclusion</h2>
+  <p>All 23 unit tests passed with 0 failures. Core features — message search, share formatting, WordPress publish validation, SEO title generation, and HTML escaping — are verified. The app is stable for demo and APK distribution.</p>
+
+  <p class="meta">Prepared for portfolio — AutoBlog Mobile Application (Outbox)</p>
+</body>
+</html>

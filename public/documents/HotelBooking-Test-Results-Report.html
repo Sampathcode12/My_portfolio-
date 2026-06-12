@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookMyRoom — Test Results & QA Report</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 24px; color: #1e293b; line-height: 1.6; }
+    h1 { color: #7c3aed; border-bottom: 3px solid #d946ef; padding-bottom: 12px; }
+    h2 { color: #334155; margin-top: 32px; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    th, td { border: 1px solid #cbd5e1; padding: 10px 12px; text-align: left; }
+    th { background: #f1f5f9; }
+    .pass { color: #059669; font-weight: 600; }
+    .meta { color: #64748b; font-size: 14px; }
+    ul { padding-left: 20px; }
+  </style>
+</head>
+<body>
+  <h1>BookMyRoom (HottelApp) — Test Results & QA Report</h1>
+  <p class="meta"><strong>App:</strong> HottelApp (com.example.hottelapp) · <strong>Version:</strong> 1.0 · <strong>Platform:</strong> Android · <strong>Report date:</strong> June 2026</p>
+
+  <h2>1. Testing Overview</h2>
+  <p>Manual functional testing was performed on login, room browsing, booking, service reservations, and admin management flows. Unit and instrumented test scaffolds are included in the project; app-specific automated tests can be expanded in future iterations.</p>
+
+  <h2>2. Types of Testing Performed</h2>
+  <ul>
+    <li>Functional testing — admin and customer login, registration, dashboards</li>
+    <li>CRUD testing — rooms, services, users, and about content management</li>
+    <li>Booking testing — room bookings and service reservations with pending status</li>
+    <li>UI testing — navigation across admin and customer activity flows</li>
+    <li>Data validation — SQLite persistence for users, rooms, bookings, and images</li>
+  </ul>
+
+  <h2>3. Sample Manual Test Cases</h2>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Module</th><th>Test case</th><th>Expected result</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>TC-01</td><td>Login</td><td>Admin login (Admin / 123)</td><td>Admin dashboard opens</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-02</td><td>Login</td><td>Customer login (Amal / 123)</td><td>Customer dashboard opens</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-03</td><td>Rooms</td><td>Browse available rooms</td><td>Room list with images and prices</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-04</td><td>Booking</td><td>Book a room as customer</td><td>Booking saved with Pending status</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-05</td><td>Services</td><td>Book hotel service</td><td>Reservation recorded in database</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-06</td><td>Admin</td><td>Add new room with image</td><td>Room appears in customer browse list</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-07</td><td>Admin</td><td>View room bookings</td><td>Pending bookings listed for review</td><td class="pass">Pass</td></tr>
+      <tr><td>TC-08</td><td>Registration</td><td>Register new user account</td><td>User can login with new credentials</td><td class="pass">Pass</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. Demo Credentials</h2>
+  <table>
+    <thead>
+      <tr><th>Role</th><th>Username</th><th>Password</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Admin</td><td>Admin</td><td>123</td></tr>
+      <tr><td>Customer</td><td>Amal</td><td>123</td></tr>
+    </tbody>
+  </table>
+
+  <h2>5. Conclusion</h2>
+  <p>Core hotel booking workflows — authentication, room/service browsing, customer bookings, and admin management — were verified through manual QA. The app runs fully offline with local SQLite storage and is suitable for portfolio demo and APK distribution.</p>
+
+  <p class="meta">Prepared for portfolio — Hotel Booking Android App (BookMyRoom / HottelApp)</p>
+</body>
+</html>

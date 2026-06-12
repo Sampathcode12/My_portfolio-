@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Menu,
   X,
@@ -65,6 +66,7 @@ const SKILLS = [
     items: [
       { name: "SQL Server", level: 86 },
       { name: "MySQL", level: 82 },
+      { name: "PostgreSQL", level: 80 },
     ],
   },
 ];
@@ -73,9 +75,10 @@ const PROJECTS = [
   {
     title: "Hotel Booking Android App",
     description:
-      "Implemented room browsing, booking flow, authentication, and local data storage using SQLite.",
+      "Built BookMyRoom — an offline hotel app with room browsing, service reservations, SQLite storage, and admin/customer role-based dashboards.",
     tags: ["Android", "Java", "SQLite", "UI/UX"],
     gradient: "from-fuchsia-500/10 via-violet-500/10 to-cyan-400/10",
+    detailPath: "/projects/hotel-booking",
   },
   {
     title: "FitZone Fitness Center Web App",
@@ -115,9 +118,10 @@ const PROJECTS = [
   {
     title: "AutoBlog Mobile Application",
     description:
-      "Developed a messaging app with text messaging and image upload, focusing on smooth communication and design.",
-    tags: ["Android", "Java", "Media Upload", "Chat App"],
+      "Built Outbox — an offline-first Android app to compose messages, attach images, share via social apps, and publish to WordPress or Blogger.",
+    tags: ["Android", "Java", "Room", "WordPress", "Blogger"],
     gradient: "from-sky-500/10 via-indigo-500/10 to-violet-500/10",
+    detailPath: "/projects/autoblog",
   },
 ];
 
@@ -205,6 +209,7 @@ function SectionHeader({ icon, title }: { icon: React.ReactNode; title: string }
 }
 
 export default function App() {
+  const navigate = useNavigate();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBack, setShowBack] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -347,7 +352,7 @@ export default function App() {
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-emerald-500/10 to-violet-500/10 opacity-60" />
                 <div className="relative h-[560px] w-full rounded-[1.75rem] bg-slate-950/90 p-6">
                   <div className="relative z-10 flex flex-col items-center pt-8 text-center text-slate-200">
-                    <div className="relative h-[250px] w-[250px] overflow-hidden rounded-[2.5rem] border border-slate-700/60 bg-slate-950/80 shadow-[0_30px_90px_rgba(15,23,42,0.35)]">
+                    <a href={LINK_LINKEDIN} target="_blank" rel="noreferrer" className="group relative h-[250px] w-[250px] overflow-hidden rounded-[2.5rem] border border-slate-700/60 bg-slate-950/80 shadow-[0_30px_90px_rgba(15,23,42,0.35)] transition hover:border-emerald-400/50 hover:shadow-[0_40px_110px_rgba(16,185,129,0.25)] cursor-pointer">
                       <img
                         src={PROFILE_IMAGE}
                         alt="Lahiru Sampath"
@@ -358,9 +363,12 @@ export default function App() {
                             target.src = "/profile.svg";
                           }
                         }}
-                        className="h-full w-full object-cover"
+                        className="h-full w-full object-cover transition group-hover:scale-105"
                       />
-                    </div>
+                      <div className="absolute inset-0 bg-black/0 transition group-hover:bg-black/20 flex items-center justify-center">
+                        <span className="opacity-0 transition group-hover:opacity-100 text-sm font-semibold text-white">View LinkedIn</span>
+                      </div>
+                    </a>
                     <p className="mt-8 text-sm uppercase tracking-[0.35em] text-cyan-300">Profile</p>
                     <h3 className="mt-4 text-3xl font-bold">Software Engineer</h3>
                     <p className="mt-3 text-sm text-slate-400">CINEC Campus | Intern</p>
@@ -468,7 +476,28 @@ export default function App() {
             <SectionHeader icon={<ExternalLink size={20} />} title="Projects" />
             <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {PROJECTS.map((project) => (
-                <div key={project.title} className="group relative overflow-hidden rounded-[2rem] border border-slate-700/40 bg-slate-950/80 shadow-[0_40px_100px_rgba(15,23,42,0.35)] transition hover:-translate-y-1 hover:shadow-[0_50px_120px_rgba(16,185,129,0.22)]">
+                <div
+                  key={project.title}
+                  className={`group relative overflow-hidden rounded-[2rem] border border-slate-700/40 bg-slate-950/80 shadow-[0_40px_100px_rgba(15,23,42,0.35)] transition hover:-translate-y-1 hover:shadow-[0_50px_120px_rgba(16,185,129,0.22)]${
+                    "detailPath" in project && project.detailPath ? " cursor-pointer" : ""
+                  }`}
+                  onClick={() => {
+                    if ("detailPath" in project && project.detailPath) {
+                      navigate(project.detailPath);
+                    }
+                  }}
+                  onKeyDown={(event) => {
+                    if (
+                      ("detailPath" in project && project.detailPath) &&
+                      (event.key === "Enter" || event.key === " ")
+                    ) {
+                      event.preventDefault();
+                      navigate(project.detailPath);
+                    }
+                  }}
+                  role={"detailPath" in project && project.detailPath ? "link" : undefined}
+                  tabIndex={"detailPath" in project && project.detailPath ? 0 : undefined}
+                >
                   <div className={`h-56 ${project.gradient} absolute inset-x-0 top-0 overflow-hidden`}></div>
                   <div className="relative p-6 pt-40">
                     <div className="mb-5 rounded-3xl border border-slate-900/40 bg-slate-950/95 p-4 text-slate-300 shadow-[inset_0_0_30px_rgba(0,0,0,0.15)]">
@@ -483,13 +512,24 @@ export default function App() {
                       ))}
                     </div>
                     <div className="mt-8 flex items-center gap-3 opacity-0 transition group-hover:opacity-100">
-                      <button className="inline-flex items-center gap-2 rounded-2xl bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/20">
-                        <ExternalLink size={16} /> View Project
-                      </button>
+                      {"detailPath" in project && project.detailPath ? (
+                        <Link
+                          to={project.detailPath}
+                          onClick={(event) => event.stopPropagation()}
+                          className="inline-flex items-center gap-2 rounded-2xl bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/20"
+                        >
+                          <ExternalLink size={16} /> View Project
+                        </Link>
+                      ) : (
+                        <button className="inline-flex items-center gap-2 rounded-2xl bg-cyan-400/10 px-4 py-3 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/20">
+                          <ExternalLink size={16} /> View Project
+                        </button>
+                      )}
                       <a
                         href={LINK_GITHUB}
                         target="_blank"
                         rel="noreferrer"
+                        onClick={(event) => event.stopPropagation()}
                         className="inline-flex items-center gap-2 rounded-2xl border border-slate-700/60 bg-slate-950/90 px-4 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-400/40 hover:text-cyan-300"
                       >
                         <Github size={16} /> GitHub
